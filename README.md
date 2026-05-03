@@ -4,7 +4,7 @@ TATTVAMIND is an innovative **student wellness and lifestyle platform** inspired
 
 In today’s fast-paced environment, students often struggle with **stress, lack of focus, and poor lifestyle balance**. TATTVAMIND bridges this gap by combining **modern technology with timeless principles**, creating a holistic ecosystem for personal growth.
 
-Landing page URL : golden-clafoutis-ca9df8.netlify.app
+Landing page URL Final Landing Page: golden-clafoutis-ca9df8.netlify.app
 
 ---
 
