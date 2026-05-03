@@ -4,6 +4,8 @@ TATTVAMIND is an innovative **student wellness and lifestyle platform** inspired
 
 In today’s fast-paced environment, students often struggle with **stress, lack of focus, and poor lifestyle balance**. TATTVAMIND bridges this gap by combining **modern technology with timeless principles**, creating a holistic ecosystem for personal growth.
 
+Landing page URL : golden-clafoutis-ca9df8.netlify.app
+
 ---
 
 ## 🚀 Key Features
@@ -66,16 +68,12 @@ This helps us better understand user needs and continuously improve the platform
 
 Join us early and be part of the **wellness revolution** 🚀  
 
-👉 Fill out the form to get Beta Access
-
----
-
-## 🛠️ Tech Stack *(Optional)*
+## 🛠️ Tech Stack 
 
 - Frontend:  
 - Backend:  
 - Database:  
-- APIs / Integrations:  
+- APIs / Integrations: Fire base 
 
 ---
 
@@ -86,6 +84,3 @@ Feel free to fork the repo and submit a pull request.
 
 ---
 
-## 📄 License
-
-This project is licensed under the **MIT License** (or your preferred license).
