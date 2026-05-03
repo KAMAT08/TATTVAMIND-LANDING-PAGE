@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TattvaMind</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&amp;family=Sora:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; }
+
+    @keyframes float1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-20px) scale(1.1)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-25px,15px) scale(1.05)} }
+    @keyframes float3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(15px,25px)} }
+    @keyframes pulseGlow { 0%,100%{box-shadow:0 0 20px rgba(99,220,255,0.4),0 0 60px rgba(99,220,255,0.15)} 50%{box-shadow:0 0 30px rgba(99,220,255,0.6),0 0 90px rgba(99,220,255,0.25)} }
+    @keyframes starTwinkle { 0%,100%{opacity:0.2} 50%{opacity:1} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes orbRotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes elementPulse { 0%,100%{opacity:0.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.15)} }
+    @keyframes cardLift { from{transform:translateY(0)} to{transform:translateY(-12px)} }
+    @keyframes cardGlowFire { 0%,100%{box-shadow:0 20px 40px rgba(249,115,22,0.1),0 0 20px rgba(249,115,22,0.05)} 50%{box-shadow:0 30px 60px rgba(249,115,22,0.2),0 0 40px rgba(249,115,22,0.15)} }
+    @keyframes cardGlowWater { 0%,100%{box-shadow:0 20px 40px rgba(56,189,248,0.1),0 0 20px rgba(56,189,248,0.05)} 50%{box-shadow:0 30px 60px rgba(56,189,248,0.2),0 0 40px rgba(56,189,248,0.15)} }
+    @keyframes cardGlowEarth { 0%,100%{box-shadow:0 20px 40px rgba(74,222,128,0.1),0 0 20px rgba(74,222,128,0.05)} 50%{box-shadow:0 30px 60px rgba(74,222,128,0.2),0 0 40px rgba(74,222,128,0.15)} }
+    @keyframes cardGlowAir { 0%,100%{box-shadow:0 20px 40px rgba(196,181,253,0.1),0 0 20px rgba(196,181,253,0.05)} 50%{box-shadow:0 30px 60px rgba(196,181,253,0.2),0 0 40px rgba(196,181,253,0.15)} }
+    @keyframes cardGlowEther { 0%,100%{box-shadow:0 20px 40px rgba(99,220,255,0.1),0 0 20px rgba(99,220,255,0.05)} 50%{box-shadow:0 30px 60px rgba(99,220,255,0.2),0 0 40px rgba(99,220,255,0.15)} }
+    @keyframes modalSlideIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+    @keyframes spin { to{transform:rotate(360deg)} }
+
+    .orb-earth { animation: float1 8s ease-in-out infinite; }
+    .orb-water { animation: float2 10s ease-in-out infinite; }
+    .orb-fire { animation: float3 7s ease-in-out infinite; }
+    .orb-air { animation: float1 12s ease-in-out infinite; }
+    .orb-ether { animation: float2 9s ease-in-out infinite; }
+    .cta-glow { animation: pulseGlow 3s ease-in-out infinite; }
+    .fade-up { animation: fadeInUp 0.8s ease-out both; }
+    .fade-up-d1 { animation-delay: 0.15s; }
+    .fade-up-d2 { animation-delay: 0.35s; }
+    .fade-up-d3 { animation-delay: 0.55s; }
+    .fade-up-d4 { animation-delay: 0.75s; }
+    .orbit-ring { animation: orbRotate 30s linear infinite; }
+    .elem-pulse { animation: elementPulse 4s ease-in-out infinite; }
+
+    .star {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: starTwinkle 3s ease-in-out infinite;
+    }
+
+    .card-fire { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .card-fire:hover { animation: cardLift 0.4s ease-out forwards, cardGlowFire 3s ease-in-out infinite; }
+    .card-water { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .card-water:hover { animation: cardLift 0.4s ease-out forwards, cardGlowWater 3s ease-in-out infinite; }
+    .card-earth { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .card-earth:hover { animation: cardLift 0.4s ease-out forwards, cardGlowEarth 3s ease-in-out infinite; }
+    .card-air { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .card-air:hover { animation: cardLift 0.4s ease-out forwards, cardGlowAir 3s ease-in-out infinite; }
+    .card-ether { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .card-ether:hover { animation: cardLift 0.4s ease-out forwards, cardGlowEther 3s ease-in-out infinite; }
+    
+    #waitlist-modal > div { animation: modalSlideIn 0.3s ease-out; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full overflow-auto" style="font-family: 'Sora', sans-serif;">
+  <div id="app-wrapper" class="w-full h-full relative overflow-hidden" style="background: linear-gradient(145deg, #040714 0%, #0a1128 30%, #0d1b3e 60%, #081020 100%);"><!-- Stars -->
+   <div id="stars-container" class="absolute inset-0 pointer-events-none"></div><!-- Cosmic orbs -->
+   <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="orb-earth absolute top-[12%] left-[8%] w-28 h-28 rounded-full opacity-25" style="background: radial-gradient(circle, #4ade80, transparent 70%); filter: blur(30px);"></div>
+    <div class="orb-water absolute top-[60%] left-[5%] w-36 h-36 rounded-full opacity-20" style="background: radial-gradient(circle, #38bdf8, transparent 70%); filter: blur(35px);"></div>
+    <div class="orb-fire absolute top-[15%] right-[10%] w-32 h-32 rounded-full opacity-20" style="background: radial-gradient(circle, #f97316, transparent 70%); filter: blur(30px);"></div>
+    <div class="orb-air absolute bottom-[20%] right-[8%] w-24 h-24 rounded-full opacity-20" style="background: radial-gradient(circle, #c4b5fd, transparent 70%); filter: blur(25px);"></div>
+    <div class="orb-ether absolute top-[45%] left-[50%] w-40 h-40 rounded-full opacity-10" style="background: radial-gradient(circle, #63dcff, transparent 70%); filter: blur(40px);"></div>
+   </div><!-- Orbit ring -->
+   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+    <div class="orbit-ring w-[500px] h-[500px] md:w-[650px] md:h-[650px] rounded-full border border-white/[0.04]">
+     <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-cyan-400/50 elem-pulse"></div>
+     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-orange-400/50 elem-pulse" style="animation-delay:1s"></div>
+     <div class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-green-400/50 elem-pulse" style="animation-delay:2s"></div>
+     <div class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 w-2.5 h-2.5 rounded-full bg-violet-400/50 elem-pulse" style="animation-delay:3s"></div>
+    </div>
+   </div><!-- Main content -->
+   <div class="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center"><!-- Element icons row -->
+    <div class="fade-up flex items-center gap-3 mb-8"><span class="text-2xl" title="Earth">🌍</span> <span class="text-2xl" title="Water">💧</span> <span class="text-2xl" title="Fire">🔥</span> <span class="text-2xl" title="Air">🌬️</span> <span class="text-2xl" title="Ether">✨</span>
+    </div><!-- Headline -->
+    <h1 id="headline" class="fade-up fade-up-d1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight max-w-4xl" style="font-family: 'Outfit', sans-serif; background: linear-gradient(135deg, #ffffff 0%, #63dcff 50%, #c4b5fd 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">TattvaMind: Wellness Through the Five Elements</h1><!-- Sub-headline -->
+    <p id="sub-headline" class="fade-up fade-up-d2 mt-6 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed" style="color: #94a3c6;">An attractive and engaging student companion app designed to keep you mentally and physically fit by balancing the five aspects of your lifestyle</p><!-- CTA -->
+    <div class="fade-up fade-up-d3 mt-10"><button id="cta-btn" onclick="openWaitlistModal()" class="cta-glow relative px-8 py-4 rounded-full text-base sm:text-lg font-bold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer" style="background: linear-gradient(135deg, #0ea5e9, #63dcff, #8b5cf6); color: #040714; border: 1px solid rgba(99,220,255,0.3);"> Get your Beta Access NOW </button>
+    </div><!-- Elemental badges -->
+    <div class="fade-up fade-up-d4 mt-12 flex flex-wrap justify-center gap-3"><span class="px-3 py-1.5 rounded-full text-xs font-medium border" style="color: #4ade80; border-color: rgba(74,222,128,0.2); background: rgba(74,222,128,0.06);">🌍 Earth · Stability</span> <span class="px-3 py-1.5 rounded-full text-xs font-medium border" style="color: #38bdf8; border-color: rgba(56,189,248,0.2); background: rgba(56,189,248,0.06);">💧 Water · Flow</span> <span class="px-3 py-1.5 rounded-full text-xs font-medium border" style="color: #f97316; border-color: rgba(249,115,22,0.2); background: rgba(249,115,22,0.06);">🔥 Fire · Energy</span> <span class="px-3 py-1.5 rounded-full text-xs font-medium border" style="color: #c4b5fd; border-color: rgba(196,181,253,0.2); background: rgba(196,181,253,0.06);">🌬️ Air · Clarity</span> <span class="px-3 py-1.5 rounded-full text-xs font-medium border" style="color: #63dcff; border-color: rgba(99,220,255,0.2); background: rgba(99,220,255,0.06);">✨ Ether · Balance</span>
+    </div>
+   </div>
+  </div><!-- Waitlist Modal -->
+  <div id="waitlist-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" style="background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px);">
+   <div class="relative w-full max-w-md rounded-3xl p-8 border" style="border-color: rgba(99,220,255,0.3); background: linear-gradient(135deg, rgba(10,17,40,0.95), rgba(13,27,62,0.95)); backdrop-filter: blur(20px); box-shadow: 0 20px 80px rgba(99,220,255,0.15);"><!-- Close button --> <button id="modal-close" class="absolute top-6 right-6 p-2 rounded-full transition-all hover:bg-white/10" style="color: #94a3c6;"> <i data-lucide="x" style="width: 24px; height: 24px;"></i> </button> <!-- Success state (hidden by default) -->
+    <div id="success-state" class="hidden text-center">
+     <div class="text-6xl mb-4">
+      ✨
+     </div>
+     <h3 class="text-2xl font-bold mb-3" style="color: #63dcff;">Success! You're on the list.</h3>
+     <p class="mb-6" style="color: #94a3c6;">We'll notify you the second new beta slots open. Get ready to transform your student life!</p><button id="modal-close-success" class="px-6 py-3 rounded-full font-semibold transition-all hover:scale-105 active:scale-95" style="background: linear-gradient(135deg, #0ea5e9, #63dcff); color: #040714; border: 1px solid rgba(99,220,255,0.3);"> Got it! </button>
+    </div><!-- Form state -->
+    <div id="form-state"><!-- Headline -->
+     <h2 class="text-3xl sm:text-4xl font-extrabold mb-4" style="font-family: 'Outfit', sans-serif; color: #ffffff;">You're one step away!</h2><!-- Description -->
+     <p class="mb-8 leading-relaxed" style="color: #cbd5e1; font-size: 0.95rem;">We are currently in a closed beta testing phase with our first 500 users. Enter your email ID below to jump to the front of the waitlist and get notified when you can purchase your beta access.</p><!-- Form -->
+     <form id="waitlist-form">
+      <div class="mb-6"><input type="email" id="email-input" placeholder="Enter your email..." required class="w-full px-4 py-3 rounded-lg border backdrop-filter backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-0" style="border-color: rgba(99,220,255,0.2); background: rgba(99,220,255,0.05); color: #e2e8f0; font-size: 1rem;" onfocus="this.style.borderColor = 'rgba(99,220,255,0.5)'; this.style.background = 'rgba(99,220,255,0.1)';" onblur="this.style.borderColor = 'rgba(99,220,255,0.2)'; this.style.background = 'rgba(99,220,255,0.05)';">
+       <p id="email-error" class="text-xs mt-2 hidden" style="color: #ff6b6b;">Please enter a valid email address</p>
+      </div><button type="submit" id="submit-btn" class="w-full px-6 py-3 rounded-lg font-bold text-base transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2" style="background: linear-gradient(135deg, #0ea5e9, #63dcff); color: #040714; border: 1px solid rgba(99,220,255,0.3);"> <span>Join the Waitlist</span> <i id="submit-icon" data-lucide="arrow-right" style="width: 20px; height: 20px;"></i> </button>
+     </form><!-- Loading state -->
+     <div id="loading-state" class="hidden text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-3 rounded-lg" style="background: rgba(99,220,255,0.1);">
+       <div style="width: 16px; height: 16px; border: 2px solid rgba(99,220,255,0.3); border-top-color: #63dcff; border-radius: 50%; animation: spin 1s linear infinite;"></div><span style="color: #63dcff; font-size: 0.9rem;">Adding you to the waitlist...</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- The Crisis Section -->
+  <section class="relative w-full py-20 px-6" style="background: linear-gradient(180deg, #040714 0%, #1a0d1f 100%);">
+   <div class="max-w-6xl mx-auto"><!-- Section headline -->
+    <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-4" style="font-family: 'Outfit', sans-serif; background: linear-gradient(135deg, #ff6b6b 0%, #ff8c42 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Why Are So Many Students Struggling?</h2>
+    <p class="text-center mb-16" style="color: #cbd5e1; font-size: 1.1rem;">The reality behind academic success and mental wellness</p><!-- Stats grid -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12"><!-- Stat 1 -->
+     <div class="relative group">
+      <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 140, 66, 0.1));"></div>
+      <div class="relative p-8 rounded-2xl border" style="border-color: rgba(255, 107, 107, 0.2); background: rgba(255, 107, 107, 0.03); backdrop-filter: blur(10px);">
+       <div class="text-5xl sm:text-6xl font-bold mb-4" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8c42 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        42.6%
+       </div>
+       <p class="text-lg leading-relaxed mb-4" style="color: #e2e8f0;">of Indian graduates are <strong>unemployable</strong> due to not having soft skills like communication and creative thinking.</p>
+       <p class="text-sm" style="color: #94a3c6;">📌 Source: <em>The Print</em></p>
+      </div>
+     </div><!-- Stat 2 -->
+     <div class="relative group">
+      <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(255, 140, 66, 0.1), rgba(255, 193, 7, 0.1));"></div>
+      <div class="relative p-8 rounded-2xl border" style="border-color: rgba(255, 193, 7, 0.2); background: rgba(255, 193, 7, 0.03); backdrop-filter: blur(10px);">
+       <div class="text-5xl sm:text-6xl font-bold mb-4" style="background: linear-gradient(135deg, #ffc107 0%, #ff8c42 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        📉
+       </div>
+       <p class="text-lg leading-relaxed mb-4" style="color: #e2e8f0;"><strong>Academic stress is destroying student focus.</strong> The constant pressure to perform academically leaves little room for personal growth, mental clarity, or physical wellness.</p>
+       <p class="text-base font-semibold" style="color: #ff8c42;">You don't need just another planner. You need a complete lifestyle overhaul.</p>
+      </div>
+     </div>
+    </div><!-- Crisis insight box -->
+    <div class="relative group mt-12">
+     <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(168, 85, 247, 0.15));"></div>
+     <div class="relative p-8 rounded-2xl border text-center" style="border-color: rgba(255, 107, 107, 0.3); background: rgba(255, 107, 107, 0.05); backdrop-filter: blur(10px);">
+      <p class="text-xl sm:text-2xl leading-relaxed" style="color: #e2e8f0;"><span style="color: #ff8c42; font-weight: bold;">The disconnect is clear:</span> Students excel academically but lack the <strong>holistic wellness framework</strong> needed to thrive in work and life. Mental health, physical fitness, emotional balance, creative thinking, and meaningful relationships are treated as afterthoughts—not essentials.</p>
+     </div>
+    </div>
+   </div>
+  </section><!-- Wellness Through The Five Elements Section -->
+  <section class="relative w-full py-24 px-6" style="background: linear-gradient(180deg, #0a0f1f 0%, #0d1b3e 100%);">
+   <div class="max-w-7xl mx-auto"><!-- Section header -->
+    <div class="text-center mb-20">
+     <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4" style="font-family: 'Outfit', sans-serif; background: linear-gradient(135deg, #63dcff 0%, #c4b5fd 50%, #63dcff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Wellness Through The Five Elements</h2>
+     <p style="color: #94a3c6; font-size: 1.1rem;">Balance your lifestyle across five essential dimensions</p>
+    </div><!-- Cards grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6"><!-- Fire Card -->
+     <div class="card-fire group p-6 rounded-2xl border backdrop-filter backdrop-blur-md cursor-pointer" style="border-color: rgba(249,115,22,0.2); background: rgba(249,115,22,0.03);">
+      <div class="text-5xl mb-4">
+       🔥
+      </div>
+      <h3 class="text-xl font-bold mb-3" style="color: #f97316;">FIRE · Energy</h3>
+      <p class="text-sm leading-relaxed mb-4" style="color: #cbd5e1;">Signifies energy and skills. Features the <strong style="color: #f97316;">Quick Fire Quest</strong> which provides tasks to build communication and teamwork (e.g., Talk to a new classmate).</p>
+      <div class="flex items-center text-xs font-medium" style="color: #f97316;"><span>→ Build Your Skills</span>
+      </div>
+     </div><!-- Water Card -->
+     <div class="card-water group p-6 rounded-2xl border backdrop-filter backdrop-blur-md cursor-pointer" style="border-color: rgba(56,189,248,0.2); background: rgba(56,189,248,0.03);">
+      <div class="text-5xl mb-4">
+       💧
+      </div>
+      <h3 class="text-xl font-bold mb-3" style="color: #38bdf8;">WATER · Calmness</h3>
+      <p class="text-sm leading-relaxed mb-4" style="color: #cbd5e1;">Signifies calmness to help you navigate emotional storms. Find peace and balance during turbulent times through guided techniques and mindful practices.</p>
+      <div class="flex items-center text-xs font-medium" style="color: #38bdf8;"><span>→ Find Your Flow</span>
+      </div>
+     </div><!-- Earth Card -->
+     <div class="card-earth group p-6 rounded-2xl border backdrop-filter backdrop-blur-md cursor-pointer" style="border-color: rgba(74,222,128,0.2); background: rgba(74,222,128,0.03);">
+      <div class="text-5xl mb-4">
+       🌍
+      </div>
+      <h3 class="text-xl font-bold mb-3" style="color: #4ade80;">EARTH · Stability</h3>
+      <p class="text-sm leading-relaxed mb-4" style="color: #cbd5e1;">Signifies stability, keeping you grounded during chaotic exam seasons. Build routine, discipline, and anchored habits that sustain you through challenges.</p>
+      <div class="flex items-center text-xs font-medium" style="color: #4ade80;"><span>→ Stay Grounded</span>
+      </div>
+     </div><!-- Air Card -->
+     <div class="card-air group p-6 rounded-2xl border backdrop-filter backdrop-blur-md cursor-pointer" style="border-color: rgba(196,181,253,0.2); background: rgba(196,181,253,0.03);">
+      <div class="text-5xl mb-4">
+       🌬️
+      </div>
+      <h3 class="text-xl font-bold mb-3" style="color: #c4b5fd;">AIR · Clarity</h3>
+      <p class="text-sm leading-relaxed mb-4" style="color: #cbd5e1;">Signifies mental clarity. Features <strong style="color: #c4b5fd;">Breath With Me</strong> animated techniques. Just 18 minutes of high-frequency yoga breathing significantly improves attention task performance.</p>
+      <div class="flex items-center text-xs font-medium" style="color: #c4b5fd;"><span>→ Breathe &amp; Focus</span>
+      </div>
+     </div><!-- Space/Ether Card -->
+     <div class="card-ether group p-6 rounded-2xl border backdrop-filter backdrop-blur-md cursor-pointer" style="border-color: rgba(99,220,255,0.2); background: rgba(99,220,255,0.03);">
+      <div class="text-5xl mb-4">
+       ✨
+      </div>
+      <h3 class="text-xl font-bold mb-3" style="color: #63dcff;">SPACE · Personal Space</h3>
+      <p class="text-sm leading-relaxed mb-4" style="color: #cbd5e1;">Your private zone for self-reflection and anonymous community support. Connect with peers, share experiences, and grow together in a safe, judgment-free space.</p>
+      <div class="flex items-center text-xs font-medium" style="color: #63dcff;"><span>→ Connect Freely</span>
+      </div>
+     </div>
+    </div><!-- Bottom insight -->
+    <div class="mt-16 p-8 rounded-2xl border text-center" style="border-color: rgba(99,220,255,0.15); background: rgba(99,220,255,0.03); backdrop-filter: blur(10px);">
+     <p class="text-lg leading-relaxed" style="color: #e2e8f0;">Each element works in harmony to create a <strong style="color: #63dcff;">complete wellness ecosystem</strong>. Together, they transform your student life from scattered and stressed into balanced, purposeful, and thriving.</p>
+    </div>
+   </div>
+  </section><!-- See It In Action Section -->
+  <section class="relative w-full py-24 px-6 overflow-hidden" style="background: linear-gradient(180deg, #0d1b3e 0%, #040714 100%);">
+   <div class="max-w-7xl mx-auto"><!-- Section header -->
+    <div class="mb-20">
+     <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4" style="font-family: 'Outfit', sans-serif; color: #ffffff;">See It In Action</h2>
+     <p style="color: #94a3c6; font-size: 1.1rem;">Experience the seamless design and intuitive flow of TattvaMind</p>
+    </div><!-- Asymmetrical grid layout -->
+    <div class="grid lg:grid-cols-3 gap-8 items-start"><!-- Left column - tall screenshot -->
+     <div class="lg:col-span-1 lg:row-span-2 flex flex-col">
+      <div class="relative group flex-1 rounded-3xl overflow-hidden border backdrop-filter backdrop-blur-md transition-all duration-500 hover:shadow-2xl" style="border-color: rgba(99,220,255,0.2); background: rgba(99,220,255,0.02); min-height: 500px; box-shadow: 0 20px 60px rgba(99,220,255,0.1);">
+       <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div class="text-center">
+         <div class="text-6xl mb-4 opacity-30">
+          📱
+         </div>
+         <p style="color: #64748b; font-size: 0.95rem;">Drop your mobile screenshot here</p>
+        </div>
+       </div>
+       <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-400/20 to-violet-400/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition duration-500" style="z-index: -1;"></div>
+      </div>
+      <p class="mt-6 text-lg font-semibold" style="color: #e2e8f0;">📊 Track your daily mood intensity.</p>
+      <p style="color: #94a3c6; margin-top: 0.5rem;">Monitor emotional patterns and identify triggers for deeper self-awareness.</p>
+     </div><!-- Right column - two stacked screenshots -->
+     <div class="lg:col-span-2 flex flex-col gap-8"><!-- Top right screenshot -->
+      <div class="relative group rounded-3xl overflow-hidden border backdrop-filter backdrop-blur-md transition-all duration-500 hover:shadow-2xl" style="border-color: rgba(74,222,128,0.2); background: rgba(74,222,128,0.02); min-height: 250px; box-shadow: 0 20px 60px rgba(74,222,128,0.1);">
+       <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/30 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div class="text-center">
+         <div class="text-6xl mb-4 opacity-30">
+          📱
+         </div>
+         <p style="color: #64748b; font-size: 0.95rem;">Drop your mobile screenshot here</p>
+        </div>
+       </div>
+       <div class="absolute -inset-0.5 bg-gradient-to-r from-green-400/20 to-cyan-400/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition duration-500" style="z-index: -1;"></div>
+      </div>
+      <p class="text-lg font-semibold" style="color: #e2e8f0;">⚡ Complete Quick Fire Quests and level up your real-world skills.</p>
+      <p style="color: #94a3c6; margin-top: -0.5rem;">Build communication, teamwork, and confidence through fun, actionable daily challenges.</p><!-- Bottom right screenshot -->
+      <div class="relative group rounded-3xl overflow-hidden border backdrop-filter backdrop-blur-md transition-all duration-500 hover:shadow-2xl" style="border-color: rgba(196,181,253,0.2); background: rgba(196,181,253,0.02); min-height: 250px; box-shadow: 0 20px 60px rgba(196,181,253,0.1);">
+       <div class="absolute inset-0 bg-gradient-to-br from-violet-900/30 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div class="text-center">
+         <div class="text-6xl mb-4 opacity-30">
+          📱
+         </div>
+         <p style="color: #64748b; font-size: 0.95rem;">Drop your mobile screenshot here</p>
+        </div>
+       </div>
+       <div class="absolute -inset-0.5 bg-gradient-to-r from-violet-400/20 to-pink-400/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition duration-500" style="z-index: -1;"></div>
+      </div>
+      <p class="text-lg font-semibold" style="color: #e2e8f0;">🧘 Find your zen with guided breathing and mindfulness.</p>
+      <p style="color: #94a3c6; margin-top: -0.5rem;">Calm your mind in just 18 minutes with animated breathing techniques scientifically proven to enhance focus.</p>
+     </div>
+    </div><!-- Call to action at bottom -->
+    <div class="mt-20 p-8 rounded-2xl border text-center" style="border-color: rgba(99,220,255,0.2); background: rgba(99,220,255,0.05); backdrop-filter: blur(10px);">
+     <p class="text-xl font-semibold mb-4" style="color: #e2e8f0;">Ready to transform your student life?</p><button onclick="openWaitlistModal()" class="px-8 py-3 rounded-full font-bold text-base transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer" style="background: linear-gradient(135deg, #0ea5e9, #63dcff); color: #040714; border: 1px solid rgba(99,220,255,0.3);">Get Your Beta Access Today</button>
+    </div>
+   </div>
+  </section>
+  <script>
+    // Generate stars
+    const starsContainer = document.getElementById('stars-container');
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      star.style.animationDuration = (2 + Math.random() * 4) + 's';
+      if (Math.random() > 0.7) { star.style.width = '3px'; star.style.height = '3px'; }
+      starsContainer.appendChild(star);
+    }
+
+    // Element SDK
+    const defaultConfig = {
+      headline: 'TattvaMind: Wellness Through the Five Elements',
+      sub_headline: 'An attractive and engaging student companion app designed to keep you mentally and physically fit by balancing the five aspects of your lifestyle',
+      cta_text: 'Purchase your Beta Access NOW',
+      background_color: '#040714',
+      surface_color: '#0a1128',
+      text_color: '#94a3c6',
+      primary_action: '#63dcff',
+      secondary_action: '#c4b5fd'
+    };
+
+    function applyConfig(config) {
+      const h = document.getElementById('headline');
+      const s = document.getElementById('sub-headline');
+      const b = document.getElementById('cta-btn');
+      const wrap = document.getElementById('app-wrapper');
+
+      const bg = config.background_color || defaultConfig.background_color;
+      const sf = config.surface_color || defaultConfig.surface_color;
+      const tx = config.text_color || defaultConfig.text_color;
+      const pa = config.primary_action || defaultConfig.primary_action;
+      const sa = config.secondary_action || defaultConfig.secondary_action;
+      const font = config.font_family ? `${config.font_family}, Outfit, sans-serif` : "'Outfit', sans-serif";
+      const baseSize = config.font_size || 16;
+
+      h.textContent = config.headline || defaultConfig.headline;
+      s.textContent = config.sub_headline || defaultConfig.sub_headline;
+      b.textContent = config.cta_text || defaultConfig.cta_text;
+
+      wrap.style.background = `linear-gradient(145deg, ${bg} 0%, ${sf} 50%, ${bg} 100%)`;
+      s.style.color = tx;
+      h.style.fontFamily = font;
+      s.style.fontFamily = config.font_family ? `${config.font_family}, Sora, sans-serif` : "'Sora', sans-serif";
+      h.style.backgroundImage = `linear-gradient(135deg, #ffffff 0%, ${pa} 50%, ${sa} 100%)`;
+      b.style.background = `linear-gradient(135deg, ${pa}, ${sa})`;
+      b.style.borderColor = `${pa}44`;
+
+      h.style.fontSize = `${baseSize * 3.5}px`;
+      s.style.fontSize = `${baseSize * 1.15}px`;
+      b.style.fontSize = `${baseSize * 1.1}px`;
+    }
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => applyConfig(config),
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => config.primary_action || defaultConfig.primary_action, set: (v) => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+          { get: () => config.secondary_action || defaultConfig.secondary_action, set: (v) => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } }
+        ],
+        borderables: [],
+        fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['headline', config.headline || defaultConfig.headline],
+        ['sub_headline', config.sub_headline || defaultConfig.sub_headline],
+        ['cta_text', config.cta_text || defaultConfig.cta_text]
+      ])
+    });
+
+    lucide.createIcons();
+
+    // Waitlist modal functionality
+    function openWaitlistModal() {
+      document.getElementById('waitlist-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeWaitlistModal() {
+      document.getElementById('waitlist-modal').classList.add('hidden');
+      document.getElementById('form-state').classList.remove('hidden');
+      document.getElementById('success-state').classList.add('hidden');
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('email-input').value = '';
+      document.getElementById('email-error').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    document.getElementById('modal-close').addEventListener('click', closeWaitlistModal);
+    document.getElementById('modal-close-success').addEventListener('click', closeWaitlistModal);
+
+    // Close modal on backdrop click
+    document.getElementById('waitlist-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeWaitlistModal();
+      }
+    });
+
+    // Form submission handler
+    document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const emailInput = document.getElementById('email-input');
+      const email = emailInput.value.trim();
+      const emailError = document.getElementById('email-error');
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        emailError.classList.remove('hidden');
+        emailInput.focus();
+        return;
+      }
+      emailError.classList.add('hidden');
+
+      // Show loading state
+      document.getElementById('form-state').classList.add('hidden');
+      document.getElementById('loading-state').classList.remove('hidden');
+
+      // Simulate API call (500ms delay)
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Show success state
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('success-state').classList.remove('hidden');
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ea9eeb146f43a87',t:'MTc3NTkwOTg5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<!-- Firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<!-- Your JS -->
+<script src="script.js"></script>
+ </body>
+ </html>
