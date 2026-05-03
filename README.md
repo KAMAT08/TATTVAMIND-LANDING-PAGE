@@ -1,4 +1,4 @@
-🌿 ##TATTVAMIND – Student Wellness Platform
+🌿 #TATTVAMIND – Student Wellness Platform
 
 TATTVAMIND is an innovative student wellness and lifestyle platform inspired by the philosophy of the five elements—Fire, Water, Air, Earth, and Space. It is designed to enhance mental well-being, improve focus, and help students build a balanced lifestyle while managing academic and personal challenges.
 
