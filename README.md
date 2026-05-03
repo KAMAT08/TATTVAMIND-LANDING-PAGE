@@ -70,11 +70,10 @@ Join us early and be part of the **wellness revolution** 🚀
 
 ## 🛠️ Tech Stack 
 
-- Frontend:  
-- Backend:  
-- Database:  
-- APIs / Integrations: Fire base 
-
+- Frontend: React / HTML / CSS / JS
+- Backend: Firebase (Authentication + Firestore / Realtime DB)
+- Database: Firebase Firestore
+- Deployment: Netlify 
 ---
 
 ## 🤝 Contributing
